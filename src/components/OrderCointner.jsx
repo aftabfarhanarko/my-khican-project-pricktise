@@ -12,15 +12,31 @@ const OrderCointner = ({ orderPromise }) => {
   const [readyes, setReadyes] = useState([]);
 
   const handelOrders = (myorder) => {
+    const test = cook.find((item) => item.id == myorder.id);
+    if (test) {
+      alert("Allready Token");
+      return;
+    }
     const newCook = [...cook, myorder];
     setCook(newCook);
   };
 
   const handelServey = (serves) => {
+    serves.setAt= new Date().toLocaleDateString();
+    const test = readyes.find((item) => item.id == serves.id);
+    if (test) {
+      alert("Allready Token");
+      return;
+    }
     const newServe = [...readyes, serves];
     setReadyes(newServe);
+
+    const neweDate = order.filter(item => item.id !== serves.id);
+    setOrder(neweDate);
+
+    const newCook = cook.filter(onea => onea.id !== serves.id);
+    setCook(newCook)
   };
-  console.log(readyes);
   return (
     <div className="w-11/12 mx-auto ">
       <div>
@@ -52,11 +68,11 @@ const OrderCointner = ({ orderPromise }) => {
                   No Item Cooking
                 </h1>
               ) : (
-                cook.map((order) => (
+                cook.map((pontes) => (
                   <CookingCard
                     handelServey={handelServey}
-                    order={order}
-                    key={order.id}
+                    order={pontes}
+                    key={pontes.id}
                   ></CookingCard>
                 ))
               )}
@@ -65,20 +81,16 @@ const OrderCointner = ({ orderPromise }) => {
             <div>
               <h1 className="text-3xl font-semibold mt-5">Reday for Serve</h1>
               <div className="mt-5 bg-base-200 p-5 rounded-lg space-y-5">
-              {cook.length === 0 ? (
-                <h1 className="py-10 text-center bg-base-200 rounded-lg">
-                  No Item Cooking
-                </h1>
-              ) : (
-                readyes.map((order) => (
-                  <ServeCard
-                  
-                    order={order}
-                    key={order.id}
-                  ></ServeCard>
-                ))
-              )}
-            </div>
+                {cook.length === 0 ? (
+                  <h1 className="py-10 text-center bg-base-200 rounded-lg">
+                    No Item Cooking
+                  </h1>
+                ) : (
+                  readyes.map((onassd) => (
+                    <ServeCard order={onassd} key={onassd.id}></ServeCard>
+                  ))
+                )}
+              </div>
             </div>
           </div>
         </div>
